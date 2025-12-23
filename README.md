@@ -8,7 +8,7 @@ The system consists of three core tables with the following relationships:
 
 #### 1. Users Table
 
-    Stores information about all system users including both customers and administrators.
+Stores information about all system users including both customers and administrators.
 
 ##### Columns:
 
@@ -20,7 +20,7 @@ The system consists of three core tables with the following relationships:
 
 #### 2. Vehicles Table
 
-    Maintains the complete inventory of available vehicles for rent.
+Maintains the complete inventory of available vehicles for rent.
 
 ##### Columns:
 
@@ -34,7 +34,7 @@ The system consists of three core tables with the following relationships:
 
 #### 3. Bookings Table
 
-    Records all rental bookings and their transaction details.
+Records all rental bookings and their transaction details.
 
 ##### Columns:
 
