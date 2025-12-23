@@ -2,6 +2,8 @@
 
 ## Overview & Objectives
 
+This project implements a comprehensive database solution for a Vehicle Rental System that manages users, vehicles, and booking operations. The system is designed to handle real-world scenarios including customer registrations, vehicle inventory management, and rental booking workflows.
+
 ## Database Schema
 
 The system consists of three core tables with the following relationships:
