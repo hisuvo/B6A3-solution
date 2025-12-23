@@ -6,10 +6,11 @@
 
 The system consists of three core tables with the following relationships:
 
-1.  Users Table
+#### 1. Users Table
+
     Stores information about all system users including both customers and administrators.
 
-    Columns:
+##### Columns:
 
 - user_id (SERIAL PRIMARY KEY) - Unique identifier for each user
 - name (VARCHAR(50)) - User's full name
@@ -17,10 +18,11 @@ The system consists of three core tables with the following relationships:
 - phone (VARCHAR(20)) - Contact phone number
 - role (VARCHAR(20)) - User role (either 'Admin' or 'Customer')
 
-2.  Vehicles Table
+#### 2. Vehicles Table
+
     Maintains the complete inventory of available vehicles for rent.
 
-    Columns:
+##### Columns:
 
 - vehicle_id (SERIAL PRIMARY KEY) - Unique identifier for each vehicle
 - name (VARCHAR(50)) - Vehicle name/brand
@@ -30,10 +32,11 @@ The system consists of three core tables with the following relationships:
 - rental_price (INT) - Daily rental price
 - status (VARCHAR(20)) - Current availability status ('available', 'rented', or 'maintenance')
 
-3.  Bookings Table
+#### 3. Bookings Table
+
     Records all rental bookings and their transaction details.
 
-    Columns:
+##### Columns:
 
 - booking_id (SERIAL PRIMARY KEY) - Unique identifier for each booking
 - user_id (INT REFERENCES users) - Foreign key linking to the customer
