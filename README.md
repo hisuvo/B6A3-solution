@@ -11,43 +11,43 @@ The system consists of three core tables with the following relationships:
 
     Columns:
 
-        user_id (SERIAL PRIMARY KEY) - Unique identifier for each user
-        name (VARCHAR(50)) - User's full name
-        email (VARCHAR(100) UNIQUE) - User's email address (must be unique)
-        phone (VARCHAR(20)) - Contact phone number
-        role (VARCHAR(20)) - User role (either 'Admin' or 'Customer')
+- user_id (SERIAL PRIMARY KEY) - Unique identifier for each user
+- name (VARCHAR(50)) - User's full name
+- email (VARCHAR(100) UNIQUE) - User's email address (must be unique)
+- phone (VARCHAR(20)) - Contact phone number
+- role (VARCHAR(20)) - User role (either 'Admin' or 'Customer')
 
 2.  Vehicles Table
     Maintains the complete inventory of available vehicles for rent.
 
     Columns:
 
-        vehicle_id (SERIAL PRIMARY KEY) - Unique identifier for each vehicle
-        name (VARCHAR(50)) - Vehicle name/brand
-        type (VARCHAR(20)) - Vehicle type ('car', 'bike', or 'truck')
-        model (VARCHAR(30)) - Vehicle model year/version
-        registration_number (VARCHAR(50) UNIQUE) - Unique registration plate number
-        rental_price (INT) - Daily rental price
-        status (VARCHAR(20)) - Current availability status ('available', 'rented', or 'maintenance')
+- vehicle_id (SERIAL PRIMARY KEY) - Unique identifier for each vehicle
+- name (VARCHAR(50)) - Vehicle name/brand
+- type (VARCHAR(20)) - Vehicle type ('car', 'bike', or 'truck')
+- model (VARCHAR(30)) - Vehicle model year/version
+- registration_number (VARCHAR(50) UNIQUE) - Unique registration plate number
+- rental_price (INT) - Daily rental price
+- status (VARCHAR(20)) - Current availability status ('available', 'rented', or 'maintenance')
 
 3.  Bookings Table
     Records all rental bookings and their transaction details.
 
     Columns:
 
-         booking_id (SERIAL PRIMARY KEY) - Unique identifier for each booking
-         user_id (INT REFERENCES users) - Foreign key linking to the customer
-         vehicle_id (INT REFERENCES vehicles) - Foreign key linking to the rented vehicle
-         start_date (DATE) - Rental start date
-         end_date (DATE) - Rental end date
-         status (VARCHAR(20)) - Booking status ('pending', 'confirmed', 'completed', or 'cancelled')
-         total_cost (NUMERIC(10,2)) - Total rental cost for the booking period
+- booking_id (SERIAL PRIMARY KEY) - Unique identifier for each booking
+- user_id (INT REFERENCES users) - Foreign key linking to the customer
+- vehicle_id (INT REFERENCES vehicles) - Foreign key linking to th- rented vehicle
+- start_date (DATE) - Rental start date
+- end_date (DATE) - Rental end date
+- status (VARCHAR(20)) - Booking status ('pending', 'confirmed', 'completed', or 'cancelled')
+- total_cost (NUMERIC(10,2)) - Total rental cost for the booking period
 
 ## Entity Relationships
 
-    Users Bookings: One-to-Many relationship (one user can make multiple bookings)
-    Vehicles Bookings: One-to-Many relationship (one vehicle can have multiple bookings over time)
-    Each Booking: Links exactly one user to one vehicle for a specific time period
+- Users Bookings: One-to-Many relationship (one user can make multiple bookings)
+- Vehicles Bookings: One-to-Many relationship (one vehicle can have multiple bookings over time)
+- Each Booking: Links exactly one user to one vehicle for a specific time period
 
 ## SQL Queries Explained
 
@@ -61,6 +61,13 @@ Query:
         INNER JOIN users AS u USING(user_id)
         INNER JOIN vehicles AS v USING(vehicle_id)
 
+Explanation:
+
+- Joins three tables (bookings, users, vehicles) to consolidate related information
+- Uses INNER JOIN to match bookings with corresponding user and vehicle records
+- Returns only bookings that have valid user and vehicle references
+- Provides a complete view of each booking with human-readable customer and vehicle names
+
 ### Query 2: EXISTS
 
 Requirement: Find all vehicles that have never been booked.
@@ -73,6 +80,13 @@ Query:
             WHERE b.vehicle_id = v.vehicle_id
         )
 
+Explanation:
+
+- Uses NOT EXISTS to find vehicles without any matching records in the bookings table
+- The subquery checks for any booking entries associated with each vehicle
+- Returns vehicles that have never been rented (no matching vehicle_id in bookings)
+- Helps identify new inventory or vehicles that may need marketing attention
+
 ### Query 3: WHERE
 
 Requirement: Retrieve all available vehicles of a specific type (e.g. cars).
@@ -81,6 +95,14 @@ Query:
 
         SELECT * FROM vehicles
         WHERE type = 'car' AND status = 'available'
+
+Explanation:
+
+- Applies multiple filter conditions using the WHERE clause
+- Filters by vehicle type (in this example, 'car') and availability status ('available')
+- Returns only vehicles that match both conditions
+- This query pattern can be easily modified to search for 'bike' or 'truck' types
+- Essential for showing customers only the vehicles they can currently rent
 
 ### Query 4: GROUP BY and HAVING
 
